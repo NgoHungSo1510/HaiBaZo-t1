@@ -16,7 +16,7 @@ const GameContainer: React.FC = () => {
     const [isAutoPlay, setIsAutoPlay] = React.useState(false);
     const [time, setTime] = useState<number>(0);
 
-    const timerRef = useRef<NodeJS.Timeout | null>(null);
+    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     useEffect(() => {
         if (gameStatus === 'playing') {
@@ -31,7 +31,7 @@ const GameContainer: React.FC = () => {
             if (timerRef.current) clearInterval(timerRef.current); };
         }, [gameStatus]);
     useEffect(() => {
-        let autoInterval: NodeJS.Timeout;
+        let autoInterval: ReturnType<typeof setInterval>;
         if (isAutoPlay && gameStatus === 'playing') {
             autoInterval = setInterval(() => handlePointClick(nextTarget), 500); }
         return () => clearInterval(autoInterval);
