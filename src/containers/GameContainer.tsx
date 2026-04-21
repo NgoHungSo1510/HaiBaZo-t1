@@ -48,7 +48,7 @@ const GameContainer: React.FC = () => {
     const handlePointClick = (id: number) => {
         if (gameStatus !== 'playing') return;
         if (id == nextTarget) {
-            setPoints(prev => prev.map(p => p.id === id ? { ...p, status: 'fading' } : p));
+            setPoints(prev => prev.map(p => p.id === id ? { ...p, status: 'fading' as const } : p));
             setNextTarget(prev => prev + 1);
         } else {
             setGameStatus('gameover');
@@ -57,7 +57,7 @@ const GameContainer: React.FC = () => {
 
     const handleFaded = (id: number) => {
         setPoints(prev => {
-            const updatedPoints = prev.map(p => p.id === id ? { ...p, status: 'cleared' } : p);
+            const updatedPoints = prev.map(p => p.id === id ? { ...p, status: 'cleared' as const } : p);
             const allCleared = updatedPoints.every(p => p.status === 'cleared');
             if (allCleared && updatedPoints.length > 0) setGameStatus('win');
             return updatedPoints;
